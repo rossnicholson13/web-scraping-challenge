@@ -12,14 +12,10 @@ def init_browser():
 def scrape():
     browser = init_browser()
 
-    #chromedriver set up
-    executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
-    browser = Browser('chrome', **executable_path, headless=False)
-
     #Visit url for news data
     url = 'https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest'
     browser.visit(url)
-    time.sleep(2)
+    time.sleep(1)
 
     #convert parse html with Beautiful Soup, scrape first title and paragraph
     html = browser.html
@@ -31,7 +27,7 @@ def scrape():
     #Visit url for Mars image
     url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url)
-    time.sleep(2)
+    time.sleep(1)
 
     #create soup instance and scrape image url
     html = browser.html
@@ -46,7 +42,7 @@ def scrape():
     #Visit url for Mars Weather Twitter
     url = 'https://twitter.com/marswxreport?lang=en'
     browser.visit(url)
-    time.sleep(2)
+    time.sleep(1)
 
     #create soup instance and scrape latest weather
     html = browser.html
@@ -57,7 +53,7 @@ def scrape():
     #Visit url for Mars Facts
     url = 'https://space-facts.com/mars/'
     browser.visit(url)
-    time.sleep(2)
+    time.sleep(1)
 
     #parse url to retrieve Mars table and set column headers
     tables = pd.read_html(url)
@@ -70,7 +66,7 @@ def scrape():
     #Visit USGS Astrogeology site here to obtain high resolution images for each of Mar's hemispheres
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url)
-    time.sleep(4)
+    time.sleep(1)
 
     #create soup instance to scrape images
     html = browser.html
@@ -87,7 +83,7 @@ def scrape():
         hemisphere = link.find('h3').text
         image_url['title'] = hemisphere
         browser.click_link_by_partial_text(hemisphere)
-        time.sleep(2)
+        time.sleep(1)
         #reset soup instance, fetch image link on new site
         html = browser.html
         child_soup = BeautifulSoup(html, 'html.parser')
@@ -97,6 +93,7 @@ def scrape():
         hemisphere_image_urls.append(image_url)
         #go back to original page and repeat process for other links
         browser.back()
+        time.sleep(1)
     
     #store information into dictionary
     scraping_info = {}

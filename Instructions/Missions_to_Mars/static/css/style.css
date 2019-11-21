@@ -1,3 +1,4 @@
-h2 {
-    color: blue;
+.border{
+	border: 3px;
+	padding: 10px;
 }
