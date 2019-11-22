@@ -64,7 +64,7 @@ def scrape():
     df
     
     #Use Pandas to convert the data to a HTML table string
-    html_table = df.to_html(index=False)
+    html_table = df.to_html()
 
     #Visit USGS Astrogeology site here to obtain high resolution images for each of Mar's hemispheres
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
