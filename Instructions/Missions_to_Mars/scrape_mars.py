@@ -58,7 +58,10 @@ def scrape():
     #parse url to retrieve Mars table and set column headers
     tables = pd.read_html(url)
     df = tables[0]
-    df.columns = ['Mars Fact', 'Value']
+    df= df.set_index(0)
+    del df.index.name
+    df.columns=['Value']
+    df
     
     #Use Pandas to convert the data to a HTML table string
     html_table = df.to_html(index=False)
